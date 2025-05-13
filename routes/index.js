@@ -1,24 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../server');
 
-// Ruta para la página principal (formulario)
+// Rutas principales
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Formulario Escolar' });
+  res.send('API de Gestión Escolar');
 });
 
-// Ruta para procesar el formulario (POST)
-router.post('/estudiante', (req, res) => {
-  const { nombre, apellido, grupo, carrera, turno } = req.body;
-  const sql = `INSERT INTO Estudiantes (nombre, apellido, grupo, carrera, turno) VALUES (?, ?, ?, ?, ?)`;
-  db.run(sql, [nombre, apellido, grupo, carrera, turno], (err) => {
-    if (err) {
-      console.error('Error al insertar estudiante:', err.message);
-      res.send('Error al registrar el estudiante.');
-    } else {
-      res.redirect('/');
-    }
-  });
+// Rutas para Estudiantes
+router.get('/estudiantes', (req, res) => {
+  res.send('Listado de estudiantes');
+});
+
+// Rutas para Fichas de Atención
+router.get('/fichas', (req, res) => {
+  res.send('Listado de fichas de atención');
+});
+
+// Rutas para Tests de Estilo de Aprendizaje
+router.get('/tests', (req, res) => {
+  res.send('Listado de tests');
+});
+
+// Rutas para Respuestas de Tests
+router.get('/respuestas', (req, res) => {
+  res.send('Listado de respuestas');
 });
 
 module.exports = router;
