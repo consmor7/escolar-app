@@ -8,81 +8,166 @@
 </head>
 <body>
   <div class="container">
-    <h1>Registro de Estudiantes</h1>
-    <form action="/estudiante" method="POST">
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-      </div>
-      <div class="form-group">
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required>
-      </div>
-      <div class="form-group">
-        <label for="grupo">Grupo:</label>
-        <input type="text" id="grupo" name="grupo" required>
-      </div>
-      <div class/edita el archivo `public/css/styles.css` para darle estilo al formulario:
+    <h1>Sistema Escolar</h1>
+    <nav>
+      <ul>
+        <li><a href="#estudiantes">Registrar Estudiante</a></li>
+        <li><a href="#tutores">Registrar Tutor</a></li>
+        <li><a href="#fichas">Registrar Ficha de Atención</a></li>
+        <li><a href="#tests">Registrar Test de Estilos</a></li>
+        <li><a href="#respuestas">Registrar Respuestas de Test</a></li>
+      </ul>
+    </nav>
 
-```css
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
+    <!-- Formulario para Estudiantes -->
+    <section id="estudiantes">
+      <h2>Registrar Estudiante</h2>
+      <form action="/estudiante" method="POST">
+        <div class="form-group">
+          <label for="nombre_estudiante">Nombre:</label>
+          <input type="text" id="nombre_estudiante" name="nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="apellido_estudiante">Apellido:</label>
+          <input type="text" id="apellido_estudiante" name="apellido" required>
+        </div>
+        <div class="form-group">
+          <label for="grupo">Grupo:</label>
+          <input type="text" id="grupo" name="grupo" required>
+        </div>
+        <div class="form-group">
+          <label for="carrera">Carrera:</label>
+          <input type="text" id="carrera" name="carrera" required>
+        </div>
+        <div class="form-group">
+          <label for="turno">Turno:</label>
+          <select id="turno" name="turno" required>
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+            <option value="Nocturno">Nocturno</option>
+          </select>
+        </div>
+        <button type="submit">Registrar Estudiante</button>
+      </form>
+    </section>
 
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
+    <!-- Formulario para Tutores -->
+    <section id="tutores">
+      <h2>Registrar Tutor</h2>
+      <form action="/tutor" method="POST">
+        <div class="form-group">
+          <label for="nombre_tutor">Nombre:</label>
+          <input type="text" id="nombre_tutor" name="nombre" required>
+        </div>
+        <button type="submit">Registrar Tutor</button>
+      </form>
+    </section>
 
-h1 {
-  text-align: center;
-  color: #333;
-}
+    <!-- Formulario para Fichas de Atención -->
+    <section id="fichas">
+      <h2>Registrar Ficha de Atención</h2>
+      <form action="/ficha" method="POST">
+        <div class="form-group">
+          <label for="id_estudiante_ficha">Estudiante:</label>
+          <select id="id_estudiante_ficha" name="id_estudiante" required>
+            <option value="">Selecciona un estudiante</option>
+            <% estudiantes.forEach(estudiante => { %>
+              <option value="<%= estudiante.id_estudiante %>">
+                <%= estudiante.nombre %> <%= estudiante.apellido %>
+              </option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="id_tutor_ficha">Tutor:</label>
+          <select id="id_tutor_ficha" name="id_tutor" required>
+            <option value="">Selecciona un tutor</option>
+            <% tutores.forEach(tutor => { %>
+              <option value="<%= tutor.id_tutor %>"><%= tutor.nombre %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fecha_ficha">Fecha:</label>
+          <input type="date" id="fecha_ficha" name="fecha" required>
+        </div>
+        <div class="form-group">
+          <label for="situacion_presentada">Situación Presentada:</label>
+          <textarea id="situacion_presentada" name="situacion_presentada" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="atencion_otorgada">Atención Otorgada:</label>
+          <textarea id="atencion_otorgada" name="atencion_otorgada" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="resultados_obtenidos">Resultados Obtenidos:</label>
+          <textarea id="resultados_obtenidos" name="resultados_obtenidos" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="observaciones">Observaciones:</label>
+          <textarea id="observaciones" name="observaciones"></textarea>
+        </div>
+        <button type="submit">Registrar Ficha</button>
+      </form>
+    </section>
 
-.form-group {
-  margin-bottom: 15px;
-}
+    <!-- Formulario para Test de Estilos de Aprendizaje -->
+    <section id="tests">
+      <h2>Registrar Test de Estilos de Aprendizaje</h2>
+      <form action="/test" method="POST">
+        <div class="form-group">
+          <label for="id_estudiante_test">Estudiante:</label>
+          <select id="id_estudiante_test" name="id_estudiante" required>
+            <option value="">Selecciona un estudiante</option>
+            <% estudiantes.forEach(estudiante => { %>
+              <option value="<%= estudiante.id_estudiante %>">
+                <%= estudiante.nombre %> <%= estudiante.apellido %>
+              </option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fecha_test">Fecha:</label>
+          <input type="date" id="fecha_test" name="fecha" required>
+        </div>
+        <button type="submit">Registrar Test</button>
+      </form>
+    </section>
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-input[type="text"],
-select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-select:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
+    <!-- Formulario para Respuestas de Test -->
+    <section id="respuestas">
+      <h2>Registrar Respuestas de Test</h2>
+      <form action="/respuesta" method="POST">
+        <div class="form-group">
+          <label for="id_test_respuesta">Test:</label>
+          <select id="id_test_respuesta" name="id_test" required>
+            <option value="">Selecciona un test</option>
+            <% tests.forEach(test => { %>
+              <option value="<%= test.id_test %>">
+                Test #<%= test.id_test %> - Estudiante <%= test.id_estudiante %> (<%= test.fecha %>)
+              </option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoría:</label>
+          <select id="categoria" name="categoria" required>
+            <option value="visual">Visual</option>
+            <option value="auditivo">Auditivo</option>
+            <option value="sensacion">Sensación</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="numero_pregunta">Número de Pregunta:</label>
+          <input type="number" id="numero_pregunta" name="numero_pregunta" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="puntaje">Puntaje:</label>
+          <input type="number" id="puntaje" name="puntaje" min="0" required>
+        </div>
+        <button type="submit">Registrar Respuesta</button>
+      </form>
+    </section>
+  </div>
+</body>
+</html>
